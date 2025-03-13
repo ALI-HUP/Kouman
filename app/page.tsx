@@ -7,6 +7,7 @@ export default function Home() {
       <header className="">
         <Image src={Banner} alt="first banner" className="w-[100%]"/>
       </header>
+      <h1 className="text-2xl">چنل کوماندو</h1>
     </div>
   );
 }
