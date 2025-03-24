@@ -1,13 +1,13 @@
 import Image from "next/image";
-import Banner from "@/public/banners/channels4_banner (1).jpg";
+import Banner from "@/public/banners/banner-NBG.png";
 
 export default function Home() {
   return (
     <div>
-      <header className="">
-        <Image src={Banner} alt="first banner" className="w-[100%]"/>
+      <header className="flex items-center justify-center flex-col">
+        <Image src={Banner} alt="first banner" className="w-[750px]"/>
+        <h1 className="text-2xl m-5">چنل کوماندو</h1>
       </header>
-      <h1 className="text-2xl">چنل کوماندو</h1>
     </div>
   );
 }
