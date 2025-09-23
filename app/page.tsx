@@ -11,26 +11,6 @@ import Youtube from "@/public/png/youtube.png";
 export default function Home() {
   return (
     <div>
-      <header className="m-5 rounded-full bg-orange-200 w-[70%] mx-auto flex justify-between items-center p-3 px-6">
-        <div className="flex gap-5">
-          <Link href="/">
-            <Image className="w-20" src={Logo} alt="Kouman Logo" />
-          </Link>
-        </div>
-
-        <div className="flex text-lg gap-5">
-          <Link href="/store">
-            <p>فروشگاه</p>
-          </Link>
-          <Link href="/universe">
-            <p>دنیای کومان</p>
-          </Link>
-          <Link href="/episodes">
-            <p>اپیزودها</p>
-          </Link>
-        </div>
-      </header>
-
       <div className="w-[800px] bg-orange-200 mx-auto mt-10">
         <Image
           className="animate-[breathe_3s_ease-in-out_infinite]"
@@ -47,36 +27,35 @@ export default function Home() {
       </div>
 
       <div className="bg-orange-200 flex justify-center gap-72 p-10">
-
         <div className="flex flex-col gap-10 items-end">
           <h2 className="flex gap-2 items-center">
             <Link href="https://x.com/thekouman">Twitter</Link>
             <Image
-            src={Twitter}
-            className="w-7"
-            alt="Kouman Twitter"
+              src={Twitter}
+              className="w-7"
+              alt="Kouman Twitter"
             />
           </h2>
           <h2 className="flex gap-2 items-center">
             <Link href="https://instagram.com/kouman">Instagram</Link>
             <Image
-            src={Instagram}
-            className="w-7"
-            alt="Kouman Instagram"
+              src={Instagram}
+              className="w-7"
+              alt="Kouman Instagram"
             />
           </h2>
           <h2 className="flex gap-2 items-center">
             <Link href="https://www.youtube.com/@Kouman">Youtube</Link>
             <Image
-            src={Youtube}
-            className="w-7"
-            alt="Kouman Youtube"
+              src={Youtube}
+              className="w-7"
+              alt="Kouman Youtube"
             />
           </h2>
         </div>
 
         <div className="flex flex-col items-end gap-10">
-          <Image src={Logo} alt="Kouman Logo" className="items-end"/>
+          <Image src={Logo} alt="Kouman Logo" className="items-end" />
           <div className="flex flex-col items-end">
             <p>For business inquiries and correspondence, please contact us at info@kouman.net</p>
             <p>All Right Reseved By Kouman | @2025</p>
