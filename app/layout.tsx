@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "KOUMAN",
+  title: "Kouman - کومان",
   description: "This is Kouman Website",
 };
 
