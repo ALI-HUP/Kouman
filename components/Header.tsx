@@ -12,14 +12,14 @@ export default function Header() {
       </div>
 
       <div className="flex text-lg gap-5">
-        <Link href="/store">
-          <p>فروشگاه</p>
+        <Link href="/episodes">
+          <p>اپیزودها</p>
         </Link>
         <Link href="/universe">
           <p>دنیای کومان</p>
         </Link>
-        <Link href="/episodes">
-          <p>اپیزودها</p>
+        <Link href="/store">
+          <p>فروشگاه</p>
         </Link>
       </div>
     </header>
