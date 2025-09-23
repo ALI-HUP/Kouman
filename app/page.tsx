@@ -22,7 +22,7 @@ export default function Home() {
         </div>
       </header>
 
-      <div className="w-[800px] bg-amber-100 mx-auto mt-10">
+      <div className="w-[800px] bg-orange-200 mx-auto mt-10">
         <Image
           className="animate-[breathe_4s_ease-in-out_infinite]"
           src={Poster}
@@ -37,13 +37,9 @@ export default function Home() {
         </div>
       </div>
 
-      <div className="bg-orange-200 flex flex-col gap-10 items-center p-5">
+      <div className="bg-orange-200 flex justify-center gap-72 p-10">
 
-        <div>
-          <Image src={Logo} alt="Kouman Logo" className="w-42"/>
-        </div>
-
-        <div className="flex gap-24 font-bold">
+        <div className="flex flex-col gap-10 items-end">
           <h2 className="flex gap-2 items-center">
             Twitter
             <Image
@@ -70,11 +66,14 @@ export default function Home() {
           </h2>
         </div>
 
-        <div className="flex flex-col items-center">
-          <p>For business inquiries and correspondence, please contact us at info@kouman.net</p>
-          <p>All Right Reseved By Kouman | @2025</p>
+        <div className="flex flex-col items-end gap-10">
+          <Image src={Logo} alt="Kouman Logo" className="items-end"/>
+          <div className="flex flex-col items-end">
+            <p>For business inquiries and correspondence, please contact us at info@kouman.net</p>
+            <p>All Right Reseved By Kouman | @2025</p>
+          </div>
         </div>
       </div>
     </div>
   );
-} 
+}
