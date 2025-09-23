@@ -38,6 +38,11 @@ export default function Home() {
       </div>
 
       <div className="bg-orange-200 flex flex-col gap-10 items-center p-5">
+
+        <div>
+          <Image src={Logo} alt="Kouman Logo" className="w-42"/>
+        </div>
+
         <div className="flex gap-24 font-bold">
           <h2 className="flex gap-2 items-center">
             Twitter
