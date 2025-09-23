@@ -11,9 +11,9 @@ import Youtube from "@/public/png/youtube.png";
 export default function Home() {
   return (
     <div>
-      <div className="w-[800px] bg-orange-200 mx-auto mt-10">
+      <div className="w-[750px] bg-orange-200 rounded-full mx-auto mt-10">
         <Image
-          className="animate-[breathe_3s_ease-in-out_infinite]"
+          className="animate-[floatBalanced_5s_ease-in-out_infinite]"
           src={Poster}
           alt="Kouman Poster"
         />
