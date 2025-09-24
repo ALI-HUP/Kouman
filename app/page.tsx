@@ -8,7 +8,7 @@ import { motion } from "framer-motion";
 export default function Home() {
   return (
     <div className="w-full">
-      <div className="bg-orange-200 rounded-full mx-auto mt-10 flex justify-center items-center w-[750px] max-w-[90%] sm:max-w-[80%] md:max-w-[600px] lg:max-w-[750px] p-4 sm:p-6">
+      <div className="bg-orange-200 rounded-full mx-auto mt-5 flex justify-center items-center w-[750px] max-w-[90%] sm:max-w-[80%] md:max-w-[600px] lg:max-w-[750px] p-4 sm:p-6">
         <motion.div
           drag
           dragElastic={0.2}
@@ -34,7 +34,7 @@ export default function Home() {
         </motion.div>
       </div>
 
-      <div className="px-6 sm:px-10 md:px-16 lg:px-24 py-12 sm:py-16 md:py-20 lg:py-24">
+      <div className="px-6 sm:px-10 md:px-16 lg:px-14 py-12 sm:py-16 md:py-16 lg:py-14">
         <div className="flex flex-col gap-6 sm:gap-8 max-w-3xl mx-auto text-center">
           <h1 className="text-xl sm:text-2xl md:text-3xl font-black leading-snug">
             جمعه‌های نمکی با کومان!!!؟
