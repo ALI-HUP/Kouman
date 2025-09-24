@@ -86,7 +86,7 @@ export default function Home() {
 
           <motion.div whileHover={{ scale: 1.1 }}>
             <Link
-              href="https://www.instagram.com/thekouman?igsh=MWsxdHBpMnp4d2Y3cg=="
+              href="https://www.instagram.com/thekouman?igsh=MWsxdHBpMnp4d2Y3cg==" 
               onMouseEnter={() => setInstagramHover(true)}
               onMouseLeave={() => setInstagramHover(false)}
               className="flex gap-2 items-center"
@@ -122,7 +122,7 @@ export default function Home() {
             <Image src={Logo} alt="Kouman Logo" className="items-end" />
           </motion.div>
           <div className="flex flex-col items-end">
-            <p>For business inquiries and correspondence, please contact us at info@kouman.net</p>
+            <p>For business inquiries and correspondence, please contact us at <u>info@kouman.net</u></p>
             <p>All Right Reseved By Kouman | @2025</p>
           </div>
         </div>
