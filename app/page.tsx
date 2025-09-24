@@ -86,7 +86,7 @@ export default function Home() {
 
           <motion.div whileHover={{ scale: 1.1 }}>
             <Link
-              href="https://instagram.com/kouman"
+              href="https://www.instagram.com/thekouman?igsh=MWsxdHBpMnp4d2Y3cg=="
               onMouseEnter={() => setInstagramHover(true)}
               onMouseLeave={() => setInstagramHover(false)}
               className="flex gap-2 items-center"
