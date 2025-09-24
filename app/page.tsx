@@ -2,15 +2,23 @@
 
 import Link from "next/link";
 import Image from "next/image";
+import { useState } from "react";
 import Poster from "@/public/poster/Kouman-poster.png";
 import Logo from "@/public/png/kouman.png";
 import Twitter from "@/public/png/twitter.png";
 import Instagram from "@/public/png/instagram.png";
 import Youtube from "@/public/png/youtube.png";
+import TwitterColor from "@/public/png/twitter-color.png";
+import InstagramColor from "@/public/png/instagram-color.png";
+import YoutubeColor from "@/public/png/youtube-color.png";
 import { motion } from "framer-motion";
 
 
 export default function Home() {
+  const [twitterHover, setTwitterHover] = useState(false);
+  const [instagramHover, setInstagramHover] = useState(false);
+  const [youtubeHover, setYoutubeHover] = useState(false);
+
   return (
     <div>
       <div className="w-[750px] bg-orange-200 rounded-full mx-auto mt-10 flex justify-center items-center">
@@ -60,22 +68,59 @@ export default function Home() {
 
       <div className="bg-orange-200 flex justify-center gap-72 p-10">
         <div className="flex flex-col gap-10 items-end">
-          <h2 className="flex gap-2 items-center">
-            <Link href="https://x.com/thekouman">Twitter</Link>
-            <Image src={Twitter} className="w-7" alt="Kouman Twitter" />
-          </h2>
-          <h2 className="flex gap-2 items-center">
-            <Link href="https://instagram.com/kouman">Instagram</Link>
-            <Image src={Instagram} className="w-7" alt="Kouman Instagram" />
-          </h2>
-          <h2 className="flex gap-2 items-center">
-            <Link href="https://www.youtube.com/@Kouman">Youtube</Link>
-            <Image src={Youtube} className="w-7" alt="Kouman Youtube" />
-          </h2>
+          <motion.div whileHover={{ scale: 1.1 }}>
+            <Link
+              href="https://x.com/thekouman"
+              onMouseEnter={() => setTwitterHover(true)}
+              onMouseLeave={() => setTwitterHover(false)}
+              className="flex gap-2 items-center"
+            >
+              <h2>Twitter</h2>
+              <Image
+                src={twitterHover ? TwitterColor : Twitter}
+                className="w-7"
+                alt="Kouman Twitter"
+              />
+            </Link>
+          </motion.div>
+
+          <motion.div whileHover={{ scale: 1.1 }}>
+            <Link
+              href="https://instagram.com/kouman"
+              onMouseEnter={() => setInstagramHover(true)}
+              onMouseLeave={() => setInstagramHover(false)}
+              className="flex gap-2 items-center"
+            >
+              <h2>Instagram</h2>
+              <Image
+                src={instagramHover ? InstagramColor : Instagram}
+                className="w-7"
+                alt="Kouman Instagram"
+              />
+            </Link>
+          </motion.div>
+
+          <motion.div whileHover={{ scale: 1.1 }}>
+            <Link
+              href="https://www.youtube.com/@Kouman"
+              onMouseEnter={() => setYoutubeHover(true)}
+              onMouseLeave={() => setYoutubeHover(false)}
+              className="flex gap-2 items-center"
+            >
+              <h2>Youtube</h2>
+              <Image
+                src={youtubeHover ? YoutubeColor : Youtube}
+                className="w-7"
+                alt="Kouman Youtube"
+              />
+            </Link>
+          </motion.div>
         </div>
 
         <div className="flex flex-col items-end gap-10">
-          <Image src={Logo} alt="Kouman Logo" className="items-end" />
+          <motion.div whileHover={{ scale: 1.1 }}>
+            <Image src={Logo} alt="Kouman Logo" className="items-end" />
+          </motion.div>
           <div className="flex flex-col items-end">
             <p>For business inquiries and correspondence, please contact us at info@kouman.net</p>
             <p>All Right Reseved By Kouman | @2025</p>
