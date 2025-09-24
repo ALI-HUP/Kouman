@@ -21,7 +21,7 @@ export default function Footer() {
     <footer
       className="bg-orange-200 flex flex-col lg:flex-row justify-center items-center lg:items-start gap-10 lg:gap-72 p-6 lg:p-10 text-center lg:text-right w-full"
     >
-      <div className="flex flex-col gap-6 items-center lg:items-end">
+      <div className="flex flex-row lg:flex-col justify-center gap-6 items-center lg:items-end">
         <motion.div whileHover={{ scale: 1.1 }}>
           <Link
             href="https://x.com/thekouman"
