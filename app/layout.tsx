@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -14,6 +15,11 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+const gandom = localFont({
+  src: "../public/font/Gandom.woff",
+  variable: "--font-gandom",
+});
+
 export const metadata: Metadata = {
   title: "Kouman - کومان",
   description: "This is Kouman Website",
@@ -25,15 +31,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="fa" dir="rtl">
+    <html lang="fa" dir="rtl" className={gandom.variable}>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased font-[family:var(--font-gandom)]`}
       >
         <div className="flex flex-col min-h-screen">
           <Header />
-          <main className="flex-grow">
-            {children}
-          </main>
+          <main className="flex-grow">{children}</main>
           <Footer />
         </div>
       </body>
