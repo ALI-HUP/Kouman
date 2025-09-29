@@ -23,7 +23,7 @@ export default function Header() {
       <div className="flex gap-5">
         <Link href="/">
           <Image 
-            className="w-20 hover:scale-115 transition-transform duration-200" 
+            className="w-20 hover:scale-110 transition-transform duration-200" 
             src={Logo} 
             alt="Kouman Logo" 
           />
@@ -34,17 +34,14 @@ export default function Header() {
         
         <Link href="/episodes" className="relative group">
           <span className={linkHoverClasses}>اپیزودها</span>
-          <span className="absolute left-0 -bottom-1 w-0 h-[2px] transition-all"></span>
         </Link>
 
         <Link href="/universe" className="relative group">
           <span className={linkHoverClasses}>دنیای کومان</span>
-          <span className="absolute left-0 -bottom-1 w-0 h-[2px] transition-all"></span>
         </Link>
 
         <Link href="/store" className="relative group">
           <span className={linkHoverClasses}>فروشگاه</span>
-          <span className="absolute left-0 -bottom-1 w-0 h-[2px] transition-all"></span>
         </Link>
       </div>
 
