@@ -69,17 +69,28 @@ export default function MobileMenu({ isMenuOpen, setIsMenuOpen }: MobileMenuProp
           exit="closed"
           style={{ transformOrigin: 'top' }}
         >
-          <Link href="/episodes" onClick={() => setIsMenuOpen(false)} className="w-full text-center py-2 relative group">
-            <span className="group-hover:text-orange-700 transition-colors">اپیزودها</span>
-            <span className="absolute left-0 -bottom-1 w-0 h-[2px] bg-orange-700 transition-all group-hover:w-full"></span>
+          <Link 
+            href="/episodes" 
+            onClick={() => setIsMenuOpen(false)} 
+            className="w-full text-center py-2 active:bg-orange-300 rounded-md transition-colors"
+          >
+            <span>اپیزودها</span>
           </Link>
-          <Link href="/universe" onClick={() => setIsMenuOpen(false)} className="w-full text-center py-2 relative group">
-            <span className="group-hover:text-orange-700 transition-colors">دنیای کومان</span>
-            <span className="absolute left-0 -bottom-1 w-0 h-[2px] bg-orange-700 transition-all group-hover:w-full"></span>
+          
+          <Link 
+            href="/universe" 
+            onClick={() => setIsMenuOpen(false)} 
+            className="w-full text-center py-2 active:bg-orange-300 rounded-md transition-colors"
+          >
+            <span>دنیای کومان</span>
           </Link>
-          <Link href="/store" onClick={() => setIsMenuOpen(false)} className="w-full text-center py-2 relative group">
-            <span className="group-hover:text-orange-700 transition-colors">فروشگاه</span>
-            <span className="absolute left-0 -bottom-1 w-0 h-[2px] bg-orange-700 transition-all group-hover:w-full"></span>
+          
+          <Link 
+            href="/store" 
+            onClick={() => setIsMenuOpen(false)} 
+            className="w-full text-center py-2 active:bg-orange-300 rounded-md transition-colors"
+          >
+            <span>فروشگاه</span>
           </Link>
         </motion.div>
       )}

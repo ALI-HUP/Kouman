@@ -9,6 +9,7 @@ import { motion } from "framer-motion";
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const linkHoverClasses = "transition-all duration-200 hover:text-orange-600 hover:scale-105 inline-block";
 
   return (
     <header className="
@@ -21,24 +22,29 @@ export default function Header() {
       
       <div className="flex gap-5">
         <Link href="/">
-          <Image className="w-20 hover:scale-115 transition-transform duration-200" src={Logo} alt="Kouman Logo" />
+          <Image 
+            className="w-20 hover:scale-115 transition-transform duration-200" 
+            src={Logo} 
+            alt="Kouman Logo" 
+          />
         </Link>
       </div>
 
       <div className="hidden md:flex text-lg gap-8 font-bold">
+        
         <Link href="/episodes" className="relative group">
-          <span className="group-hover:text-orange-700 transition-colors">اپیزودها</span>
-          <span className="absolute left-0 -bottom-1 w-0 h-[2px] bg-orange-700 transition-all group-hover:w-full"></span>
+          <span className={linkHoverClasses}>اپیزودها</span>
+          <span className="absolute left-0 -bottom-1 w-0 h-[2px] transition-all"></span>
         </Link>
 
         <Link href="/universe" className="relative group">
-          <span className="group-hover:text-orange-700 transition-colors">دنیای کومان</span>
-          <span className="absolute left-0 -bottom-1 w-0 h-[2px] bg-orange-700 transition-all group-hover:w-full"></span>
+          <span className={linkHoverClasses}>دنیای کومان</span>
+          <span className="absolute left-0 -bottom-1 w-0 h-[2px] transition-all"></span>
         </Link>
 
         <Link href="/store" className="relative group">
-          <span className="group-hover:text-orange-700 transition-colors">فروشگاه</span>
-          <span className="absolute left-0 -bottom-1 w-0 h-[2px] bg-orange-700 transition-all group-hover:w-full"></span>
+          <span className={linkHoverClasses}>فروشگاه</span>
+          <span className="absolute left-0 -bottom-1 w-0 h-[2px] transition-all"></span>
         </Link>
       </div>
 
