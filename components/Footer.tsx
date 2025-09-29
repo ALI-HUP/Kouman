@@ -82,7 +82,9 @@ export default function Footer() {
         <div className="flex flex-col items-center lg:items-end text-xs sm:text-sm text-gray-700">
           <p>
             For business inquiries and correspondence, please contact us at{" "}
-            <u>info@kouman.net</u>
+            <Link href="mailto:info@kouman.net" className="underline">
+              info@kouman.net
+            </Link>
           </p>
           <p>All Right Reserved By Kouman | @2025</p>
         </div>
