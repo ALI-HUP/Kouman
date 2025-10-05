@@ -1,5 +1,5 @@
-import type { NextConfig } from "next";
 import withPWA from "next-pwa";
+import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
@@ -7,8 +7,8 @@ const nextConfig: NextConfig = {
 
 export default withPWA({
   ...nextConfig,
-  pwa: {
-    dest: "public",
-    disable: process.env.NODE_ENV === "development",
-  },
-} as any);
+  dest: "public",
+  register: true,
+  skipWaiting: true,
+  disable: process.env.NODE_ENV === "development",
+});
