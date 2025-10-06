@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import Poster from "@/public/poster/Kouman-poster.png";
 import { motion } from "framer-motion";
+import YouTubeSlider from "@/components/YouTubeSlider";
 
 export default function Home() {
   return (
@@ -47,6 +48,10 @@ export default function Home() {
             کنن و تو بازی‌های مختلف با هم مسابقه بدن!
           </p>
         </div>
+      </div>
+
+      <div>
+          <YouTubeSlider />
       </div>
     </div>
   );
