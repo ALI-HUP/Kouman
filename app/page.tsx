@@ -35,7 +35,7 @@ export default function Home() {
         </motion.div>
       </div>
 
-      <div className="px-6 sm:px-10 md:px-16 lg:px-14 py-12 sm:py-16 md:py-16 lg:py-14">
+      <div className="px-6 sm:px-10 md:px-16 lg:px-14 py-10 sm:py-16 md:py-14 lg:py-12">
         <div className="flex flex-col gap-6 sm:gap-8 max-w-3xl mx-auto text-center">
           <h1 className="text-xl sm:text-2xl md:text-4xl font-black leading-snug">
             جمعه‌های نمکی با کومان!!!؟

@@ -47,7 +47,7 @@ export default function YouTubeSlider() {
   };
 
   return (
-    <div className="flex justify-center items-center py-10">
+    <div className="flex justify-center items-center pb-10">
       <div
         ref={containerRef}
         className="relative w-[360px] sm:w-[440px] md:w-[520px] lg:w-[600px] h-14 bg-gray-200 rounded-2xl flex items-center justify-center text-xl font-bold text-gray-700 overflow-hidden select-none"
