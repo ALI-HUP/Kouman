@@ -6,6 +6,8 @@ import Poster from "@/public/poster/Kouman-poster.png";
 import { motion } from "framer-motion";
 import YouTubeSlider from "@/components/YouTubeSlider";
 
+const MotionLink = motion(Link);
+
 export default function Home() {
   return (
     <div className="w-full">
@@ -50,31 +52,25 @@ export default function Home() {
         </div>
 
         <div className="mt-16 flex justify-center">
-            <Link 
+            <MotionLink 
                 href="/game" 
-                passHref
-                legacyBehavior
+                whileHover={{ 
+                    scale: 1.05, 
+                }}
+                whileTap={{ 
+                    scale: 0.95,
+                    y: 5,
+                }}
+                className="flex items-center justify-center 
+                            bg-yellow-300 hover:bg-yellow-400 
+                            font-extrabold text-xl sm:text-2xl 
+                            py-4 px-12 sm:py-5 sm:px-14 
+                            rounded-xl 
+                            shadow-2xl transition-all duration-150 
+                            cursor-pointer"
             >
-                <motion.a 
-                    whileHover={{ 
-                        scale: 1.05, 
-                    }}
-                    whileTap={{ 
-                        scale: 0.95,
-                        y: 5,
-                    }}
-                    
-                    className="flex items-center justify-center 
-                                bg-yellow-300 hover:bg-yellow-400 
-                                font-extrabold text-xl sm:text-2xl 
-                                py-4 px-12 sm:py-5 sm:px-14 
-                                rounded-xl 
-                                shadow-2xl transition-all duration-150 
-                                cursor-pointer"
-                >
-                    چالش سیر کردن ایمان! 🕹️
-                </motion.a>
-            </Link>
+                چالش سیر کردن ایمان! 🕹️
+            </MotionLink>
         </div>
       </div>
 

@@ -1,10 +1,9 @@
 "use client";
 
 import React, { useState, useEffect, useRef, useCallback } from 'react';
-import Image from 'next/image';
-import Mia from "@/public/game/mia.png";
-import Iman from "@/public/game/iman.png";
-import Kourosh from "@/public/game/kourosh.png";
+const MIA_URL = "https://kouman.net/wp-content/uploads/2025/08/Mia-1024x1024.webp";
+const KOUROSH_URL = "https://kouman.net/wp-content/uploads/2025/08/kourosh-1024x1024.webp";
+const IMAN_URL = "https://kouman.net/wp-content/uploads/2025/08/Iman-1024x1024.webp";
 
 const DESKTOP_WIDTH = 800;
 const DESKTOP_HEIGHT = 500;
@@ -21,17 +20,38 @@ const INITIAL_LIVES = 3;
 const DIFFICULTY_INCREASE_INTERVAL = 20000;
 const SPEED_INCREMENT = 0.5;
 
-const getRandom = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
+const getRandom = (min: number, max: number): number => Math.floor(Math.random() * (max - min + 1)) + min;
 const getNextIconType = () => getRandom(0, 1) === 0 ? 'MIA' : 'KOUROSH';
 
-const HeartIcon = ({ className }) => (<svg className={className} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.85 0-3.52 1.09-4.5 2.72C10.52 4.09 8.85 3 7 3A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>);
-const ZapIcon = ({ className }) => (<svg className={className} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>);
-const ChevronsUpIcon = ({ className }) => (<svg className={className} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m17 11-5-5-5 5"/><path d="m17 18-5-5-5 5"/></svg>);
-const RefreshCcwIcon = ({ className }) => (<svg className={className} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M3 21v-5h5"/></svg>);
+type FallingIcon = { 
+    id: number; 
+    x: number; 
+    y: number; 
+    type: 'MIA' | 'KOUROSH'; 
+};
 
-const IconDisplay = ({ icon, isMunching }) => {
-  const iconSrc = icon.type === 'MIA' ? Mia : Kourosh;
-  const altText = icon.type === 'MIA' ? 'Mia' : 'Kourosh';
+interface IconProps {
+    icon: FallingIcon;
+    isMunching: boolean;
+}
+
+interface GameState {
+    fallingIcons: FallingIcon[];
+    totalCaught: number;
+    lives: number;
+    isStarted: boolean;
+    isGameOver: boolean;
+    currentSpeed: number;
+}
+
+const HeartIcon = ({ className }: { className: string }) => (<svg className={className} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.85 0-3.52 1.09-4.5 2.72C10.52 4.09 8.85 3 7 3A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>);
+const ZapIcon = ({ className }: { className: string }) => (<svg className={className} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>);
+const ChevronsUpIcon = ({ className }: { className: string }) => (<svg className={className} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m17 11-5-5-5 5"/><path d="m17 18-5-5-5 5"/></svg>);
+const RefreshCcwIcon = ({ className }: { className: string }) => (<svg className={className} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M3 21v-5h5"/></svg>);
+
+const IconDisplay = ({ icon, isMunching }: IconProps) => {
+  const iconSrc = icon.type === 'MIA' ? MIA_URL : KOUROSH_URL;
+  const altText = icon.type === 'MIA' ? 'Mia Placeholder' : 'Kourosh Placeholder';
   
   const scaleClass = isMunching ? 'scale-125 rotate-6' : 'scale-100 rotate-0';
 
@@ -46,19 +66,18 @@ const IconDisplay = ({ icon, isMunching }) => {
         transitionProperty: 'none',
       }}
     >
-      <Image 
+      <img 
         src={iconSrc} 
         alt={altText} 
         width={ICON_SIZE} 
         height={ICON_SIZE} 
         className="rounded-full object-cover w-full h-full" 
-        priority
       />
     </div>
   );
 };
 
-const Catcher = ({ catcherX, isMunching }) => {
+const Catcher = ({ catcherX, isMunching }: { catcherX: number; isMunching: boolean }) => {
   const munchClass = isMunching ? 'scale-110 border-green-300' : 'scale-100 border-yellow-500';
 
   return (
@@ -73,30 +92,29 @@ const Catcher = ({ catcherX, isMunching }) => {
         bottom: 0,
       }}
     >
-      <Image 
-        src={Iman}
-        alt="Iman Catcher" 
+      <img 
+        src={IMAN_URL}
+        alt="Iman Catcher Placeholder" 
         width={CATCHER_SIZE} 
         height={CATCHER_SIZE} 
         className="rounded-full object-cover w-full h-full"
-        priority
       />
     </div>
   );
 };
 
 export default function CatchTheIconGame() {
-  const [gameDimensions, setGameDimensions] = useState({
+  const [gameDimensions, setGameDimensions] = useState<{ width: number, height: number }>({
     width: DESKTOP_WIDTH,
     height: DESKTOP_HEIGHT,
   });
   
   const initialCatcherX = DESKTOP_WIDTH / 2 - CATCHER_SIZE / 2;
-  const [catcherX, setCatcherX] = useState(initialCatcherX);
+  const [catcherX, setCatcherX] = useState<number>(initialCatcherX);
   
-  const targetCatcherXRef = useRef(initialCatcherX);
+  const targetCatcherXRef = useRef<number>(initialCatcherX);
 
-  const [game, setGame] = useState({
+  const [game, setGame] = useState<GameState>({
     fallingIcons: [],
     totalCaught: 0,
     lives: INITIAL_LIVES,
@@ -105,19 +123,19 @@ export default function CatchTheIconGame() {
     currentSpeed: INITIAL_FALL_SPEED,
   });
   
-  const [isMunching, setIsMunching] = useState(false);
+  const [isMunching, setIsMunching] = useState<boolean>(false);
   
-  const animationFrameRef = useRef(null);
-  const lastIconId = useRef(0);
-  const lastSpawnTime = useRef(0);
-  const gameContainerRef = useRef(null);
+  const animationFrameRef = useRef<number | null>(null);
+  const lastIconId = useRef<number>(0);
+  const lastSpawnTime = useRef<number>(0);
+  const gameContainerRef = useRef<HTMLDivElement>(null);
 
   const adjustDimensions = useCallback(() => {
     if (typeof window === 'undefined') return;
 
     const isMobile = window.innerWidth < BREAKPOINT;
     
-    let newWidth, newHeight;
+    let newWidth: number, newHeight: number;
 
     if (isMobile) {
       newWidth = Math.min(window.innerWidth * 0.95, MOBILE_TARGET_WIDTH);
@@ -157,16 +175,22 @@ export default function CatchTheIconGame() {
     }
   }, [adjustDimensions]);
 
-  const { width: currentW, height: currentH } = gameDimensions; // Use dynamic dimensions
+  const { width: currentW, height: currentH } = gameDimensions;
 
-  const updateGameLogic = useCallback((currentTime) => {
-    if (!game.isStarted || game.isGameOver) return;
+  const updateGameLogic = useCallback((currentTime: number) => {
+    if (!game.isStarted || game.isGameOver) {
+        if (animationFrameRef.current !== null) {
+            cancelAnimationFrame(animationFrameRef.current);
+            animationFrameRef.current = null;
+        }
+        return;
+    }
     
     const newCatcherX = targetCatcherXRef.current;
     setCatcherX(newCatcherX);
 
     let iconsCaughtThisFrame = 0;
-    const nextIcons = [];
+    const nextIcons: FallingIcon[] = [];
     let newLives = game.lives;
 
     const catcherLeft = newCatcherX;
@@ -198,7 +222,7 @@ export default function CatchTheIconGame() {
 
     if (nextIcons.length < MAX_ICONS && currentTime - lastSpawnTime.current > SPAWN_DELAY_MS) {
         lastIconId.current += 1;
-        const newIcon = {
+        const newIcon: FallingIcon = {
             id: lastIconId.current,
             x: getRandom(0, currentW - ICON_SIZE),
             y: -ICON_SIZE,
@@ -238,7 +262,7 @@ export default function CatchTheIconGame() {
   }, [game.isStarted, game.isGameOver, updateGameLogic]);
   
   useEffect(() => {
-    let difficultyTimer;
+    let difficultyTimer: NodeJS.Timeout | undefined;
     if (game.isStarted && !game.isGameOver) {
       difficultyTimer = setInterval(() => {
         setGame(prevGame => ({
@@ -247,14 +271,15 @@ export default function CatchTheIconGame() {
         }));
       }, DIFFICULTY_INCREASE_INTERVAL);
     }
-    return () => clearInterval(difficultyTimer);
+    return () => { if (difficultyTimer) clearInterval(difficultyTimer); };
   }, [game.isStarted, game.isGameOver]);
 
 
-  const handlePointerMove = (e) => {
+  const handlePointerMove = (e: React.MouseEvent | React.TouchEvent) => {
     if (!game.isStarted || game.isGameOver || !gameContainerRef.current) return;
 
-    const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+    const isTouch = 'touches' in e;
+    const clientX = isTouch ? e.touches[0].clientX : (e as React.MouseEvent).clientX;
     const rect = gameContainerRef.current.getBoundingClientRect();
     
     let newCatcherX = clientX - rect.left - CATCHER_SIZE / 2;
