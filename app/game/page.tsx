@@ -1,0 +1,297 @@
+"use client";
+
+import React, { useState, useEffect, useRef, useCallback } from 'react';
+import Image from 'next/image';
+import Mia from "@/public/game/mia.png";
+import Iman from "@/public/game/iman.png";
+import Kourosh from "@/public/game/kourosh.png";
+
+const GAME_WIDTH = 800;
+const GAME_HEIGHT = 500;
+const CATCHER_SIZE = 80; 
+const ICON_SIZE = 45; 
+const INITIAL_FALL_SPEED = 2.0; 
+const MAX_ICONS = 6;
+const SPAWN_DELAY_MS = 1000;
+const INITIAL_LIVES = 3;
+const DIFFICULTY_INCREASE_INTERVAL = 20000;
+const SPEED_INCREMENT = 0.5;
+
+const getRandom = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
+const getNextIconType = () => getRandom(0, 1) === 0 ? 'MIA' : 'KOUROSH';
+
+const HeartIcon = ({ className }) => (<svg className={className} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.85 0-3.52 1.09-4.5 2.72C10.52 4.09 8.85 3 7 3A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>);
+const ZapIcon = ({ className }) => (<svg className={className} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>);
+const ChevronsUpIcon = ({ className }) => (<svg className={className} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m17 11-5-5-5 5"/><path d="m17 18-5-5-5 5"/></svg>);
+const RefreshCcwIcon = ({ className }) => (<svg className={className} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M3 21v-5h5"/></svg>);
+// -------------------------------------------------------------------
+
+const IconDisplay = ({ icon, isMunching }) => {
+  const iconSrc = icon.type === 'MIA' ? Mia : Kourosh;
+  const altText = icon.type === 'MIA' ? 'Mia' : 'Kourosh';
+  
+  const scaleClass = isMunching ? 'scale-125 rotate-6' : 'scale-100 rotate-0';
+
+  return (
+    <div
+      className={`absolute transition-all duration-75 ease-out rounded-full shadow-lg overflow-hidden ${scaleClass}`}
+      style={{
+        width: ICON_SIZE,
+        height: ICON_SIZE,
+        left: icon.x,
+        top: icon.y,
+        transitionProperty: 'none', 
+      }}
+    >
+      <Image 
+        src={iconSrc} 
+        alt={altText} 
+        width={ICON_SIZE} 
+        height={ICON_SIZE} 
+        className="rounded-full object-cover w-full h-full" 
+        priority
+      />
+    </div>
+  );
+};
+
+const Catcher = ({ catcherX, isMunching }) => {
+  const munchClass = isMunching ? 'scale-110 border-green-300' : 'scale-100 border-yellow-500';
+
+  return (
+    <div
+      className={`absolute z-10 rounded-full shadow-2xl border-4 overflow-hidden 
+                  transition-transform duration-150 ease-out 
+                  ${munchClass}`}
+      style={{
+        width: CATCHER_SIZE,
+        height: CATCHER_SIZE,
+        left: catcherX, 
+        bottom: 0,
+      }}
+    >
+      <Image 
+        src={Iman} 
+        alt="Iman Catcher" 
+        width={CATCHER_SIZE} 
+        height={CATCHER_SIZE} 
+        className="rounded-full object-cover w-full h-full"
+        priority
+      />
+    </div>
+  );
+};
+
+export default function CatchTheIconGame() {
+  const [catcherX, setCatcherX] = useState(GAME_WIDTH / 2 - CATCHER_SIZE / 2);
+  
+  const targetCatcherXRef = useRef(GAME_WIDTH / 2 - CATCHER_SIZE / 2);
+
+  const [game, setGame] = useState({
+    fallingIcons: [],
+    totalCaught: 0,
+    lives: INITIAL_LIVES,
+    isStarted: false,
+    isGameOver: false,
+    currentSpeed: INITIAL_FALL_SPEED,
+  });
+  
+  const [isMunching, setIsMunching] = useState(false);
+  
+  const animationFrameRef = useRef(null);
+  const lastIconId = useRef(0);
+  const lastSpawnTime = useRef(0);
+  const gameContainerRef = useRef(null);
+
+  const updateGameLogic = useCallback((currentTime) => {
+    if (!game.isStarted || game.isGameOver) return;
+    
+    const newCatcherX = targetCatcherXRef.current;
+    setCatcherX(newCatcherX);
+
+    let iconsCaughtThisFrame = 0;
+    const nextIcons = [];
+    let newLives = game.lives;
+
+    const catcherLeft = newCatcherX;
+    const catcherRight = newCatcherX + CATCHER_SIZE;
+    const catcherTop = GAME_HEIGHT - CATCHER_SIZE;
+    const catcherBottom = GAME_HEIGHT;
+
+    for (const icon of game.fallingIcons) {
+      const nextY = icon.y + game.currentSpeed;
+
+      const isColliding = (
+        icon.x < catcherRight &&
+        icon.x + ICON_SIZE > catcherLeft &&
+        nextY < catcherBottom &&
+        nextY + ICON_SIZE > catcherTop
+      );
+
+      if (isColliding) {
+        iconsCaughtThisFrame++;
+      } 
+      else if (nextY > GAME_HEIGHT) {
+        newLives = Math.max(0, newLives - 1); 
+      } 
+      else {
+        icon.y = nextY;
+        nextIcons.push(icon);
+      }
+    }
+
+    if (nextIcons.length < MAX_ICONS && currentTime - lastSpawnTime.current > SPAWN_DELAY_MS) {
+        lastIconId.current += 1;
+        const newIcon = {
+            id: lastIconId.current,
+            x: getRandom(0, GAME_WIDTH - ICON_SIZE),
+            y: -ICON_SIZE,
+            type: getNextIconType(),
+        };
+        nextIcons.push(newIcon);
+        lastSpawnTime.current = currentTime;
+    }
+
+    if (iconsCaughtThisFrame > 0) {
+      setIsMunching(true);
+      setTimeout(() => setIsMunching(false), 150);
+    }
+    
+    setGame(prevGame => ({
+      ...prevGame,
+      fallingIcons: nextIcons,
+      totalCaught: prevGame.totalCaught + iconsCaughtThisFrame,
+      lives: newLives,
+      isGameOver: newLives === 0,
+    }));
+    
+    if (newLives > 0) {
+        animationFrameRef.current = requestAnimationFrame(updateGameLogic);
+    }
+
+  }, [game.isStarted, game.isGameOver, game.fallingIcons, game.lives, game.currentSpeed]);
+
+  useEffect(() => {
+    if (game.isStarted && !game.isGameOver) {
+      animationFrameRef.current = requestAnimationFrame(updateGameLogic);
+    }
+    
+    return () => {
+      if (animationFrameRef.current) cancelAnimationFrame(animationFrameRef.current);
+    };
+  }, [game.isStarted, game.isGameOver, updateGameLogic]);
+  
+  useEffect(() => {
+    let difficultyTimer;
+    if (game.isStarted && !game.isGameOver) {
+      difficultyTimer = setInterval(() => {
+        setGame(prevGame => ({
+            ...prevGame,
+            currentSpeed: prevGame.currentSpeed + SPEED_INCREMENT,
+        }));
+      }, DIFFICULTY_INCREASE_INTERVAL);
+    }
+    return () => clearInterval(difficultyTimer);
+  }, [game.isStarted, game.isGameOver]);
+
+
+  const handlePointerMove = (e) => {
+    if (!game.isStarted || game.isGameOver || !gameContainerRef.current) return;
+
+    const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+    const rect = gameContainerRef.current.getBoundingClientRect();
+    
+    let newCatcherX = clientX - rect.left - CATCHER_SIZE / 2;
+    newCatcherX = Math.max(0, Math.min(GAME_WIDTH - CATCHER_SIZE, newCatcherX));
+
+    targetCatcherXRef.current = newCatcherX;
+  };
+
+  const startGame = () => {
+    const initialCatcherX = GAME_WIDTH / 2 - CATCHER_SIZE / 2;
+    setCatcherX(initialCatcherX);
+    targetCatcherXRef.current = initialCatcherX;
+
+    lastIconId.current = 0;
+    lastSpawnTime.current = 0;
+    setGame({
+      fallingIcons: [],
+      totalCaught: 0,
+      lives: INITIAL_LIVES,
+      isStarted: true,
+      isGameOver: false,
+      currentSpeed: INITIAL_FALL_SPEED,
+    });
+  };
+
+  const renderGameStatus = () => (
+    <div className="mt-6 w-full max-w-lg flex justify-between items-center p-4 bg-gray-800 rounded-xl shadow-2xl">
+      <div className="flex items-center text-red-400 font-bold text-2xl">
+        <HeartIcon className="w-6 h-6 ml-2 fill-red-400" />
+        جان: <span className="mr-2 text-3xl">{game.lives}</span>
+      </div>
+      <div className="flex items-center text-yellow-400 font-bold text-2xl">
+        <ZapIcon className="w-6 h-6 ml-2" />
+        گرفته شده: <span className="mr-2 text-3xl">{game.totalCaught}</span>
+      </div>
+      <div className="flex items-center text-blue-400 font-bold text-xl">
+        <ChevronsUpIcon className="w-5 h-5 ml-1" />
+        سرعت: <span className="mr-1 text-2xl">{game.currentSpeed.toFixed(1)}</span>
+      </div>
+    </div>
+  );
+
+  const renderStartOverlay = () => (
+    <div className="absolute inset-0 flex flex-col items-center justify-center bg-black bg-opacity-70 z-20">
+      <h2 className="text-6xl font-black mb-6 text-yellow-400 animate-pulse text-right" dir="rtl">
+        {game.isGameOver ? 'بازی تمام شد!' : 'آماده برای تغذیه؟'}
+      </h2>
+      <p className="text-xl text-gray-200 mb-8 text-right">
+        {game.isGameOver 
+          ? `شما ${game.totalCaught} بار به ایمان غذا دادید!`
+          : 'ایمان را حرکت دهید تا میا و کوروش را بخورد.'}
+      </p>
+      <button
+        onClick={startGame}
+        className="flex items-center bg-green-500 hover:bg-green-600 text-white font-bold py-4 px-10 rounded-full text-2xl shadow-lg transform transition-all hover:scale-105"
+      >
+        {game.isGameOver ? 'شروع مجدد' : 'شروع جنون تغذیه'} 
+        <RefreshCcwIcon className="w-6 h-6 mr-3" />
+      </button>
+    </div>
+  );
+
+  return (
+    <div className="flex flex-col items-center justify-center min-h-screen text-white p-4 font-sans text-right">
+      <h1 className="text-6xl font-black mb-5 p-5 text-transparent bg-clip-text bg-gradient-to-r from-blue-950 to-teal-950 drop-shadow-lg">
+        چالش سیر کردن ایمان
+      </h1>
+
+      <div
+        ref={gameContainerRef}
+        className="relative border-8 border-gray-700 rounded-2xl shadow-2xl overflow-hidden bg-gray-950 touch-none cursor-pointer"
+        style={{ width: GAME_WIDTH, height: GAME_HEIGHT }}
+        onMouseMove={handlePointerMove}
+        onTouchMove={handlePointerMove}
+      >
+        {game.fallingIcons.map(icon => (
+          <IconDisplay
+            key={icon.id}
+            icon={icon}
+            isMunching={isMunching}
+          />
+        ))}
+
+        <Catcher catcherX={catcherX} isMunching={isMunching} />
+
+        {(!game.isStarted || game.isGameOver) && renderStartOverlay()}
+      </div>
+
+      {game.isStarted && renderGameStatus()}
+
+      <p className="mt-8 text-gray-700 text-sm max-w-lg text-center">
+        **توجه:** سرعت بازی هر {DIFFICULTY_INCREASE_INTERVAL / 1000} ثانیه افزایش می‌یابد. اگر یک آیکون را از دست بدهید، یک جان کم می‌شود!
+      </p>
+    </div>
+  );
+}

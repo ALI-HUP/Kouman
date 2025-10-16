@@ -48,6 +48,34 @@ export default function Home() {
             کنن و تو بازی‌های مختلف با هم مسابقه بدن!
           </p>
         </div>
+
+        <div className="mt-16 flex justify-center">
+            <Link 
+                href="/game" 
+                passHref
+                legacyBehavior
+            >
+                <motion.a 
+                    whileHover={{ 
+                        scale: 1.05, 
+                    }}
+                    whileTap={{ 
+                        scale: 0.95,
+                        y: 5,
+                    }}
+                    
+                    className="flex items-center justify-center 
+                                bg-yellow-300 hover:bg-yellow-400 
+                                font-extrabold text-xl sm:text-2xl 
+                                py-4 px-12 sm:py-5 sm:px-14 
+                                rounded-xl 
+                                shadow-2xl transition-all duration-150 
+                                cursor-pointer"
+                >
+                    چالش سیر کردن ایمان! 🕹️
+                </motion.a>
+            </Link>
+        </div>
       </div>
 
       <div>
