@@ -72,9 +72,9 @@ export default function MobileMenu({
           ref={menuRef}
           className="
             absolute top-20 right-5 left-5
-            bg-orange-200/95 backdrop-blur-md rounded-lg p-4 z-10
+            bg-orange-200 backdrop-blur-md rounded-lg p-4 z-10
             flex flex-col items-center gap-4 text-lg font-bold
-            shadow-lg md:hidden
+            shadow-2xl md:hidden
           "
           variants={menuVariants}
           initial="closed"

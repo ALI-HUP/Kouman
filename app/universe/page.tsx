@@ -46,7 +46,7 @@ interface CircleComponentProps {
 export default function Universe() {
   const universeMembers: UniverseMember[] = [
     {
-      name: "کومان (اصلی)",
+      name: "کومان",
       image: Kouman,
       url: "https://www.youtube.com/@Kouman",
     },
@@ -60,7 +60,7 @@ export default function Universe() {
       image: Iman,
       url: "https://www.youtube.com/@ImanDastpak",
     },
-    { name: "کومان۲", image: Kouman2, url: "https://www.youtube.com/@Kouman2" },
+    { name: "کوماندو", image: Kouman2, url: "https://www.youtube.com/@Kouman2" },
     { name: "میاپلیز", image: Mia, url: "https://www.youtube.com/@MiaPlays" },
     {
       name: "اِیمیا",
@@ -77,7 +77,7 @@ export default function Universe() {
   const CircleComponent: FC<CircleComponentProps> = ({ member }) => {
     const baseClasses = `
       relative
-      w-36 h-36 sm:w-40 sm:h-40 md:w-44 md:h-44 lg:w-48 lg:h-48
+      w-40 h-40 sm:w-45 sm:h-45 md:w-45 md:h-45 lg:w-48 lg:h-48
       mx-auto rounded-full overflow-hidden border-5 border-orange-600
       ${baseShadow}
     `;
@@ -86,7 +86,7 @@ export default function Universe() {
       <motion.div
         className={baseClasses}
         variants={circleVariants}
-        whileHover={{ scale: 1.3, y: -10, boxShadow: hoverShadow }}
+        whileHover={{ scale: 1.15, y: -10, boxShadow: hoverShadow }}
         transition={{ duration: 0.3 }}
       >
         <Image

@@ -35,7 +35,7 @@ export default function ProductCard({ product }: ProductCardProps) {
               alt={product.name}
               fill
               loading="lazy"
-              className="object-cover transition-transform duration-500 group-hover:scale-110"
+              className="object-cover transition-transform duration-500 group-hover:scale-105"
               unoptimized={true}
               sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
             />

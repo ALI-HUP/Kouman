@@ -1,0 +1,28 @@
+# Dependencies and build output
+node_modules/
+.next/
+dist/
+build/
+out/
+.turbo/
+.vercel/
+
+# Lock files
+package-lock.json
+pnpm-lock.yaml
+yarn.lock
+bun.lockb
+
+# Cache and tooling metadata
+.cache/ 
+.swc/
+*.tsbuildinfo
+
+# Test/coverage reports
+coverage/
+
+# System and git
+.git/
+.DS_Store
+*.log
+npm-debug.log*

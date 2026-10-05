@@ -19,7 +19,7 @@ export default function Footer() {
 
   return (
     <footer
-      className="bg-orange-200 flex flex-col lg:flex-row justify-center items-center lg:items-start gap-10 lg:gap-72 p-6 lg:p-10 text-center lg:text-right w-full"
+      className="bg-orange-200 flex flex-col lg:flex-row justify-center items-center lg:items-start gap-10 lg:gap-72 p-6 lg:p-6 text-center lg:text-right w-full"
     >
       <div className="flex flex-row lg:flex-col justify-center gap-6 items-center lg:items-end">
         <motion.div whileHover={{ scale: 1.1 }}>
@@ -71,7 +71,7 @@ export default function Footer() {
         </motion.div>
       </div>
 
-      <div className="flex flex-col items-center lg:items-end gap-6 lg:gap-10">
+      <div className="flex flex-col items-center lg:items-end gap-6 lg:gap-6">
         <motion.div whileHover={{ scale: 1.1 }}>
           <Image
             src={Logo}
@@ -89,7 +89,7 @@ export default function Footer() {
               info@kouman.net
             </Link>
           </p>
-          <p>All Right Reserved By Kouman | @2025</p>
+          <p>All Right Reserved By Kouman©</p>
         </div>
       </div>
     </footer>

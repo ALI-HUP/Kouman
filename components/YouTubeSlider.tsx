@@ -70,11 +70,11 @@ export default function YouTubeSlider() {
         ref={containerRef}
         className="relative w-[360px] sm:w-[440px] md:w-[520px] lg:w-[600px] h-14 bg-gray-200 rounded-2xl flex items-center justify-center text-xl font-bold text-gray-700 overflow-hidden select-none"
       >
-        <span className="z-10 pointer-events-none">
-          بریم؟؟&nbsp;&nbsp;&nbsp;&nbsp;بفرمایید!!
-        </span>
+        <div className="flex gap-30">
+          <span className="z-10 pointer-events-none">بریم؟؟</span>
+          <span className="z-10 pointer-events-none">بفرمایید!!</span>
+        </div>
 
-        {/* hint wiggle wrapper — animation only, never drag */}
         <motion.div
           className="absolute right-0 top-1/2 -translate-y-1/2 z-20 pointer-events-none"
           animate={{ x: [0, -20, 0] }}
@@ -85,7 +85,6 @@ export default function YouTubeSlider() {
             repeatDelay: 2,
           }}
         >
-          {/* draggable handle — x is exclusively drag-controlled */}
           <motion.div
             ref={handleRef}
             drag="x"

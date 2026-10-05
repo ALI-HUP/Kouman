@@ -26,13 +26,19 @@ export default function Home() {
           drag
           dragElastic={0.2}
           dragConstraints={{ top: 0, bottom: 0, left: 0, right: 0 }}
+          dragTransition={{
+            bounceStiffness: 500,
+            bounceDamping: 10,
+          }}
           className="cursor-grab active:cursor-grabbing"
           animate={{
-            y: [0, -20, 0, 20, 0],
-            scale: [1, 1.04, 1, 1.04, 1],
+            x: [0, 13, 0, -13, 0],
+            y: [0, -17, 0, 17, 0],
+            scale: [1, 1.03, 1, 1.03, 1],
           }}
           transition={{
             y: { repeat: Infinity, duration: 6, ease: "easeInOut" },
+            x: { repeat: Infinity, duration: 6, ease: "easeInOut" },
             scale: { repeat: Infinity, duration: 6, ease: "easeInOut" },
             type: "spring",
             stiffness: 200,
@@ -65,22 +71,18 @@ export default function Home() {
             variants={fadeUp}
             className="text-base sm:text-lg md:text-xl leading-relaxed text-gray-800"
           >
-            برنامه‌ی{" "}
             <strong className="text-lg sm:text-xl md:text-2xl">کومان</strong>{" "}
             جاییه که هر جمعه کورش، ایمان و میا با یه چالش جدید غیرمنتظره شما رو
             همراه خودشون می‌برن تا هر‌جور غذایی که فکرشو بکنین بخورن، عجیب‌ترین
-            محصولات اینترنتی رو امتحان کنن، به تاریخ ایران زمین سفر کنن و تو
-            فرهنگ غنیش جست‌وجو کنن و تو بازی‌های مختلف با هم مسابقه بدن!
+            محصولات اینترنتی رو امتحان کنن، به تاریخ ایران سفر کنن و تو فرهنگ
+            غنیش جست‌وجو کنن و تو بازی‌های مختلف با هم مسابقه بدن!
           </motion.p>
 
-          <motion.div
-            variants={fadeUp}
-            className="mt-10 sm:mt-16 flex justify-center"
-          >
+          <motion.div variants={fadeUp} className="mt-5 flex justify-center">
             <MotionLink
               href="/game"
               whileHover={{
-                scale: 1.06,
+                scale: 1.05,
                 boxShadow: "0 20px 35px -10px rgba(234,88,12,0.45)",
               }}
               whileTap={{
@@ -88,11 +90,10 @@ export default function Home() {
                 y: 5,
               }}
               className="flex items-center justify-center
-                          bg-yellow-300 hover:bg-yellow-400
+                          rounded-xl bg-yellow-300 
                           font-extrabold text-xl sm:text-2xl
                           py-4 px-12 sm:py-5 sm:px-14
-                          rounded-xl
-                          shadow-2xl transition-all duration-150
+                          shadow-xl transition-all duration-100
                           cursor-pointer"
             >
               چالش سیر کردن ایمان! 🕹️

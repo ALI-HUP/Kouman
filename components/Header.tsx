@@ -21,12 +21,16 @@ export default function Header() {
   return (
     <header
       className="
-      relative z-20
-      m-5 w-[90%] md:w-[70%] mx-auto flex justify-between items-center p-3 px-6
-      rounded-full bg-orange-200/90 backdrop-blur-md
-      shadow-[0_12px_25px_-5px_rgba(0,0,0,0.35),-10px_0_20px_-6px_rgba(0,0,0,0.25),10px_0_20px_-6px_rgba(0,0,0,0.25)]
-      transition-all duration-500 hover:translate-y-[-6px] hover:shadow-[0_18px_30px_-4px_rgba(0,0,0,0.45),-12px_0_24px_-6px_rgba(0,0,0,0.3),12px_0_24px_-6px_rgba(0,0,0,0.3)]
-    "
+        relative z-20
+        mx-auto m-5 w-[90%] md:w-[70%]
+        flex items-center justify-between
+        p-3 px-6
+        rounded-full
+        bg-orange-200 backdrop-blur-md
+        shadow-lg
+        transition-all duration-300
+        hover:-translate-y-1 hover:shadow-2xl
+      "
     >
       <div className="flex gap-5">
         <Link href="/">
@@ -38,7 +42,7 @@ export default function Header() {
         </Link>
       </div>
 
-      <div className="hidden md:flex text-lg gap-8 font-bold">
+      <div className="hidden md:flex text-lg gap-5 font-bold">
         {navLinks.map(({ href, label }) => {
           const isActive = pathname === href;
           return (
