@@ -20,7 +20,7 @@ const fadeUp: Variants = {
 
 export default function Home() {
   return (
-    <div className="w-full relative overflow-hidden">
+    <div>
       <div className="bg-orange-200 rounded-full mx-auto mt-5 flex justify-center items-center w-[750px] max-w-[90%] sm:max-w-[80%] md:max-w-[600px] lg:max-w-[750px] p-4 sm:p-6">
         <motion.div
           drag
@@ -82,8 +82,8 @@ export default function Home() {
             <MotionLink
               href="/game"
               whileHover={{
-                scale: 1.05,
-                boxShadow: "0 20px 35px -10px rgba(234,88,12,0.45)",
+                scale: 1.03,
+                boxShadow: "0 20px 35px -10px rgba(230,70,10,0.3)",
               }}
               whileTap={{
                 scale: 0.95,
@@ -92,7 +92,7 @@ export default function Home() {
               className="flex items-center justify-center
                           rounded-xl bg-yellow-300 
                           font-extrabold text-xl sm:text-2xl
-                          py-4 px-12 sm:py-5 sm:px-14
+                          py-3 px-10 sm:py-4 sm:px-12
                           shadow-xl transition-all duration-100
                           cursor-pointer"
             >

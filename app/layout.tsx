@@ -11,7 +11,7 @@ const gandom = localFont({
 
 export const metadata: Metadata = {
   title: "Kouman - کومان",
-  description: "This is Kouman Website",
+  description: "جمعه های نمکی با کومان!! 🧂🎀🤘",
   manifest: "/manifest.json",
 };
 

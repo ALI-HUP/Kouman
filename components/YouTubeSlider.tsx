@@ -68,9 +68,9 @@ export default function YouTubeSlider() {
     <div className="flex justify-center items-center pb-10">
       <div
         ref={containerRef}
-        className="relative w-[360px] sm:w-[440px] md:w-[520px] lg:w-[600px] h-14 bg-gray-200 rounded-2xl flex items-center justify-center text-xl font-bold text-gray-700 overflow-hidden select-none"
+        className="relative w-[350px] sm:w-[420px] md:w-[500px] lg:w-[500px] h-14 bg-gray-200 rounded-2xl flex items-center justify-center text-xl font-bold text-gray-700 overflow-hidden select-none"
       >
-        <div className="flex gap-30">
+        <div className="flex gap-12">
           <span className="z-10 pointer-events-none">بریم؟؟</span>
           <span className="z-10 pointer-events-none">بفرمایید!!</span>
         </div>

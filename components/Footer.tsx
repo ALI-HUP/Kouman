@@ -19,7 +19,7 @@ export default function Footer() {
 
   return (
     <footer
-      className="bg-orange-200 flex flex-col lg:flex-row justify-center items-center lg:items-start gap-10 lg:gap-72 p-6 lg:p-6 text-center lg:text-right w-full"
+      className="bg-orange-200 flex flex-col lg:flex-row justify-center items-center lg:items-start gap-10 lg:gap-72 p-4 text-center lg:text-right w-full"
     >
       <div className="flex flex-row lg:flex-col justify-center gap-6 items-center lg:items-end">
         <motion.div whileHover={{ scale: 1.1 }}>
@@ -76,7 +76,7 @@ export default function Footer() {
           <Image
             src={Logo}
             alt="Kouman Logo"
-            className="w-24 sm:w-28 md:w-32"
+            className="w-24 sm:w-28 md:w-28"
           />
         </motion.div>
         <div className="flex flex-col items-center lg:items-end text-xs sm:text-sm text-gray-700">

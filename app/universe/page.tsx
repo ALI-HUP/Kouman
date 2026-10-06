@@ -4,7 +4,6 @@ import Link from "next/link";
 import Image, { StaticImageData } from "next/image";
 import { FC } from "react";
 import { motion, type Variants } from "framer-motion";
-
 import Kouman from "@/public/poster/kouman.jpg";
 import Iman from "@/public/poster/iman.jpg";
 import Mia from "@/public/poster/mia.jpg";
@@ -12,6 +11,7 @@ import Kouman2 from "@/public/poster/kouman2.jpg";
 import Dogm from "@/public/poster/dogmnabash.jpeg";
 import Aemia from "@/public/poster/aemia.jpg";
 import Farahbakhsh from "@/public/poster/farahbakhsh.jpg";
+import Mashin from "@/public/poster/mashin.jpg";
 
 interface UniverseMember {
   name: string;
@@ -60,8 +60,16 @@ export default function Universe() {
       image: Iman,
       url: "https://www.youtube.com/@ImanDastpak",
     },
-    { name: "کوماندو", image: Kouman2, url: "https://www.youtube.com/@Kouman2" },
-    { name: "میاپلیز", image: Mia, url: "https://www.youtube.com/@MiaPlays" },
+    {
+      name: "کوماندو",
+      image: Kouman2,
+      url: "https://www.youtube.com/@Kouman2",
+    },
+    {
+      name: "میاپلیز",
+      image: Mia,
+      url: "https://www.youtube.com/@MiaPlays",
+    },
     {
       name: "اِیمیا",
       image: Aemia,
@@ -71,6 +79,11 @@ export default function Universe() {
       name: "پادکست فرح‌بخش",
       image: Farahbakhsh,
       url: "https://www.youtube.com/@FarahbakhshPodcast",
+    },
+    {
+      name: "پادکست ماشین",
+      image: Mashin,
+      url: "https://www.youtube.com/@MashinHQ",
     },
   ];
 
