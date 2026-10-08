@@ -9,6 +9,7 @@ import MobileMenu from "@/components/MobileMenu";
 import { motion } from "framer-motion";
 
 const navLinks = [
+  { href: "/concerts", label: "کنسرت‌ها" },
   { href: "/episodes", label: "اپیزودها" },
   { href: "/universe", label: "دنیای کومان" },
   { href: "/store", label: "فروشگاه" },
@@ -24,7 +25,7 @@ export default function Header() {
         relative z-20
         mx-auto m-5 w-[90%] md:w-[70%]
         flex items-center justify-between
-        p-3 px-6
+        py-2 px-6
         rounded-full
         bg-orange-200 backdrop-blur-md
         shadow-lg

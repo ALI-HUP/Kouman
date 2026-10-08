@@ -24,6 +24,7 @@ const menuVariants: Variants = {
 };
 
 const menuLinks = [
+  { href: "/concerts", label: "کنسرت‌ها" },
   { href: "/episodes", label: "اپیزودها" },
   { href: "/universe", label: "دنیای کومان" },
   { href: "/store", label: "فروشگاه" },

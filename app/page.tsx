@@ -92,7 +92,7 @@ export default function Home() {
               className="flex items-center justify-center
                           rounded-xl bg-yellow-300 
                           font-extrabold text-xl sm:text-2xl
-                          py-3 px-10 sm:py-4 sm:px-12
+                          py-3 px-10 sm:py-3 sm:px-12
                           shadow-xl transition-all duration-100
                           cursor-pointer"
             >
