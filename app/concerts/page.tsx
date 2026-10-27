@@ -395,9 +395,12 @@ export default function ConcertPage() {
     r.animatedLEDCanvas.height = 256;
     r.animatedLEDTexture = new THREE.CanvasTexture(r.animatedLEDCanvas);
 
+    const textureLoader = new THREE.TextureLoader();
+    const stageTexture = textureLoader.load("/consert/aemia.jpg");
+
     const screenGeo = new THREE.PlaneGeometry(32, 14);
     const screenMat = new THREE.MeshBasicMaterial({
-      map: r.animatedLEDTexture,
+      map: stageTexture,
     });
     const screenMesh = new THREE.Mesh(screenGeo, screenMat);
     screenMesh.position.set(0, 10, -27.2);
@@ -406,7 +409,7 @@ export default function ConcertPage() {
     [-21, 21].forEach((sideX, idx) => {
       const sideScreenGeo = new THREE.PlaneGeometry(7, 10);
       const sideScreenMat = new THREE.MeshBasicMaterial({
-        map: r.animatedLEDTexture,
+        map: stageTexture,
       });
       const sideScreenMesh = new THREE.Mesh(sideScreenGeo, sideScreenMat);
       sideScreenMesh.position.set(sideX, 8.5, -21);
